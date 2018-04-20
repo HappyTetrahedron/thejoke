@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Dependencies: imagemagick, BMHand font
+
+TOP="the joke"
+BOTTOM="you"
+OUTPUT="meme"
+
+SCRIPT_DIR="$(dirname "$0")"
+
+while getopts "ht:b:o:" opt 
+do
+    case "$opt" in
+    h|\?)
+        echo "Usage: $0 [-t top ] [-b bottom] [-o output]"
+        echo "       $0 [top [bottom [output]]]"
+        exit 0
+        ;;
+    t)
+        TOP=$OPTARG
+        ;;
+    b)
+        BOTTOM=$OPTARG
+        ;;
+    o)
+        OUTPUT=$OPTARG
+        ;;
+    esac
+done
+
+shift $((OPTIND-1))
+
+TOP=${1:-$TOP}
+BOTTOM=${2:-$BOTTOM}
+OUTPUT=${3:-$OUTPUT}
+
+OUTPUT="${OUTPUT%.*}.png"
+
+pushd `dirname $0` > /dev/null
+SCRIPTPATH=`pwd`
+popd > /dev/null
+
+
+IMAGE="$SCRIPTPATH/youthejoke.png"
+
+ 
+convert $IMAGE \
+    -font "$SCRIPT_DIR/BamsHand.ttf" -pointsize 40 -fill black \
+    -gravity Center -annotate -30-130 "$TOP" \
+    -gravity SouthWest -annotate +310+20 "$BOTTOM" \
+    $OUTPUT
