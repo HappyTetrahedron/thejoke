@@ -44,10 +44,17 @@ OUTPUT=${3:-$OUTPUT}
 
 OUTPUT="${OUTPUT%.*}.png"
 
+FONTSIZE=40
+
+[[ $( echo $BOTTOM | wc -c ) -gt 8 ]] && FONTSIZE=27
+
+BOTTOM="$( echo $BOTTOM | fold -w 11 -s )"
+
 IMAGE="$SCRIPTPATH/youthejoke.png"
 
 convert $IMAGE \
     -font "$SCRIPTPATH/BamsHand.ttf" -pointsize 40 -fill black \
     -gravity Center -annotate -30-130 "$TOP" \
+    -pointsize $FONTSIZE \
     -gravity SouthWest -annotate +310+20 "$BOTTOM" \
     $OUTPUT
