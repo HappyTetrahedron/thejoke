@@ -54,7 +54,7 @@ IMAGE="$SCRIPTPATH/youthejoke.png"
 
 convert $IMAGE \
     -font "$SCRIPTPATH/BamsHand.ttf" -pointsize 40 -fill black \
-    -gravity Center -annotate -30-130 "$TOP" \
+    -gravity Center -annotate '0,0,0,-130' "$TOP" \
     -pointsize $FONTSIZE \
     -gravity SouthWest -annotate +310+20 "$BOTTOM" \
     $OUTPUT
